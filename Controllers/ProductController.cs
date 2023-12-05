@@ -67,9 +67,10 @@ namespace StoreBilling.Controllers
         [HttpDelete("delete/{id:int}")]
         public IActionResult Delete(int id)
         {
-         
+        
             Products product = _db.Products.FirstOrDefault(x=> x.ProductId == id);
-           
+            if(product == null) 
+            { return NotFound(); }
             _db.Remove(product);
             _db.SaveChanges();
             return Ok();
